@@ -12,7 +12,7 @@ import java.net.SocketAddress;
 
 import picocli.CommandLine;
 
-public class Client extends Thread {
+public class RemoteChessEngineClient extends Thread {
 
     @CommandLine.Option(names = {"-p", "--port"}, description = "Server Port", arity = "1", defaultValue = "42042")
     int port;
@@ -20,7 +20,7 @@ public class Client extends Thread {
     String address;
 
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new Client()).execute(args);
+        int exitCode = new CommandLine(new RemoteChessEngineClient()).execute(args);
         System.exit(exitCode);
     }
 

@@ -39,6 +39,9 @@ public class SocketHandler extends Thread {
                     try {
                         String line = clientBufferedReader.readLine();
                         enginePrintStream.println(line);
+                        if (line == null) {
+                            break;
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                         this.interrupt();
@@ -53,6 +56,9 @@ public class SocketHandler extends Thread {
                     try {
                         String line = engineBufferedReader.readLine();
                         clientPrintStream.println(line);
+                        if (line == null) {
+                            break;
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                         this.interrupt();
