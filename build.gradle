@@ -28,6 +28,12 @@ jar {
     }
 }
 
+shadowJar {
+    archiveBaseName.set('RemoteChessEngine-Server')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}
+
 compileJava {
     options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
 }
