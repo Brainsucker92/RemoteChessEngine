@@ -1,8 +1,7 @@
 package server.factory;
 
 /**
- * Provides information about the engine that is being created on the host system. For the time being this class only
- * requires
+ * Provides information about the engine that is being created on the host system.
  */
 public interface EngineConfig {
 
