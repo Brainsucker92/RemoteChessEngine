@@ -1,2 +1,6 @@
 rootProject.name = 'RemoteChessEngine'
 include('client')
+include 'server'
+include 'core'
+include 'core'
+

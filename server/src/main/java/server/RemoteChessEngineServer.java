@@ -1,4 +1,4 @@
-package com.github.brainsucker92.rce.server;
+package server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.github.brainsucker92.rce.server.factory.EngineConfig;
-import com.github.brainsucker92.rce.server.factory.ProcessFactory;
-import com.github.brainsucker92.rce.server.factory.impl.SimpleEngineConfig;
-import com.github.brainsucker92.rce.server.factory.impl.SimpleProcessFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import picocli.CommandLine;
+import server.factory.EngineConfig;
+import server.factory.ProcessFactory;
+import server.factory.impl.SimpleEngineConfig;
+import server.factory.impl.SimpleProcessFactory;
 
 public class RemoteChessEngineServer implements Runnable {
 

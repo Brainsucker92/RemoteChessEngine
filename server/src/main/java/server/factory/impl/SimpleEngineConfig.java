@@ -1,6 +1,6 @@
-package com.github.brainsucker92.rce.server.factory.impl;
+package server.factory.impl;
 
-import com.github.brainsucker92.rce.server.factory.EngineConfig;
+import server.factory.EngineConfig;
 
 public class SimpleEngineConfig implements EngineConfig {
 

@@ -2,3 +2,5 @@
 /.gradle/
 /build/
 /client/build/
+/core/build/
+/server/

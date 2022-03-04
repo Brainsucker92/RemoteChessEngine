@@ -1,4 +1,4 @@
-package com.github.brainsucker92.rce.server.factory;
+package server.factory;
 
 public interface ProcessFactory {
     Process createProcess();

@@ -1,4 +1,4 @@
-package com.github.brainsucker92.rce.server;
+package server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.function.BooleanSupplier;
 
+import core.CharacterStreamConnector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,37 +36,13 @@ public class SocketHandler extends Thread {
             OutputStream clientSocketOutputStream = clientSocket.getOutputStream();
             BufferedReader clientBufferedReader = new BufferedReader(new InputStreamReader(clientSocketInputStream));
             PrintStream clientPrintStream = new PrintStream(clientSocketOutputStream, true);
-            Thread t1 = new Thread(() -> {
-                while (!clientSocket.isInputShutdown() && process.isAlive()) {
-                    try {
-                        String line = clientBufferedReader.readLine();
-                        enginePrintStream.println(line);
-                        if (line == null) {
-                            break;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        this.interrupt();
-                    }
-                }
-            });
+            BooleanSupplier booleanSupplier = () -> !clientSocket.isInputShutdown() && process.isAlive();
+            Thread t1 = new CharacterStreamConnector(booleanSupplier, enginePrintStream, clientBufferedReader);
             // t1.setName("Client Reader Thread");
             t1.setDaemon(true);
 
-            Thread t2 = new Thread(() -> {
-                while (!clientSocket.isOutputShutdown() && process.isAlive()) {
-                    try {
-                        String line = engineBufferedReader.readLine();
-                        clientPrintStream.println(line);
-                        if (line == null) {
-                            break;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        this.interrupt();
-                    }
-                }
-            });
+            BooleanSupplier outputSupplier = () -> !clientSocket.isOutputShutdown() && process.isAlive();
+            Thread t2 = new CharacterStreamConnector(outputSupplier, clientPrintStream, engineBufferedReader);
             // t2.setName("Process Reader Thread");
             t2.setDaemon(true);
             t1.start();

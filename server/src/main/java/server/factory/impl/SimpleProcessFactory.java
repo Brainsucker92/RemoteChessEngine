@@ -1,9 +1,9 @@
-package com.github.brainsucker92.rce.server.factory.impl;
+package server.factory.impl;
 
 import java.io.IOException;
 
-import com.github.brainsucker92.rce.server.factory.EngineConfig;
-import com.github.brainsucker92.rce.server.factory.ProcessFactory;
+import server.factory.EngineConfig;
+import server.factory.ProcessFactory;
 
 public class SimpleProcessFactory implements ProcessFactory {
 

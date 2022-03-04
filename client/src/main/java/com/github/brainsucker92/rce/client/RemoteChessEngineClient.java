@@ -9,7 +9,9 @@ import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.function.BooleanSupplier;
 
+import core.CharacterStreamConnector;
 import picocli.CommandLine;
 
 public class RemoteChessEngineClient extends Thread {
@@ -36,35 +38,11 @@ public class RemoteChessEngineClient extends Thread {
             BufferedReader systemBufferedReader = new BufferedReader(new InputStreamReader(System.in));
             PrintStream clientPrintStream = new PrintStream(clientOutputStream, true);
 
-            Thread t1 = new Thread(() -> {
-                while (!socket.isOutputShutdown()) {
-                    try {
-                        String line = systemBufferedReader.readLine();
-                        if (line == null) {
-                            break;
-                        }
-                        clientPrintStream.println(line);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        this.interrupt();
-                    }
-                }
-            });
+            BooleanSupplier outputSupplier = () -> !socket.isOutputShutdown();
+            Thread t1 = new CharacterStreamConnector(outputSupplier, clientPrintStream, systemBufferedReader);
 
-            Thread t2 = new Thread(() -> {
-                while (!socket.isInputShutdown()) {
-                    try {
-                        String line = clientBufferedReader.readLine();
-                        if (line == null) {
-                            break;
-                        }
-                        System.out.println(line);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        this.interrupt();
-                    }
-                }
-            });
+            BooleanSupplier inputSupplier = () -> !socket.isInputShutdown();
+            Thread t2 = new CharacterStreamConnector(inputSupplier, System.out, clientBufferedReader);
 
             t1.start();
             t2.start();

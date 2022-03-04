@@ -1,4 +1,4 @@
-package com.github.brainsucker92.rce.util;
+package core.util;
 
 import java.util.regex.Pattern;
 
