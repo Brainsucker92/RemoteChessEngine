@@ -2,6 +2,10 @@ package core.protocols.uci.impl;
 
 import core.protocols.uci.UCIEngineCommand;
 
+/**
+ * Since the UCI 'go' command is fairly complex, a more sophisticated way to build the command string was necessary.
+ * This class does NOT provide any verification of the submitted data.
+ */
 public class GoCommand implements UCIEngineCommand {
 
     private final String cmdString;
