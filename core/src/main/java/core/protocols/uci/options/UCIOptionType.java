@@ -1,6 +1,7 @@
 package core.protocols.uci.options;
 
 import core.engine.ChessEngine;
+import core.protocols.uci.impl.UCIProtocol;
 
 public abstract class UCIOptionType<T> {
 
@@ -48,6 +49,7 @@ public abstract class UCIOptionType<T> {
         String name = this.getName();
         String type = this.getType();
         String valStr = this.getValueString();
-        chessEngine.sendCommand(String.format("setoption name %s type %s value %s", name, type, valStr));
+        String setoptionCommand = UCIProtocol.setoption(name, type, valStr);
+        chessEngine.sendCommand(setoptionCommand);
     }
 }

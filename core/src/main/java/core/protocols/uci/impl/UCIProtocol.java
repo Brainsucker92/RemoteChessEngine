@@ -23,6 +23,10 @@ public class UCIProtocol {
         return String.format("setoption name %s value %s", name, value);
     }
 
+    public static String setoption(String name, String type, String value) {
+        return String.format("setoption name %s type %s value %s", name, type, value);
+    }
+
     public static String register(String name, String code) {
         return String.format("register name %s code %s", name, code);
     }
