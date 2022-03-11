@@ -1,12 +1,12 @@
 package server.factory.impl;
 
-import server.factory.EngineConfig;
+import server.factory.EngineParameters;
 
-public class SimpleEngineConfig implements EngineConfig {
+public class SimpleEngineParameters implements EngineParameters {
 
     private final String engineCommand;
 
-    public SimpleEngineConfig(String engineCommand) {
+    public SimpleEngineParameters(String engineCommand) {
         this.engineCommand = engineCommand;
     }
 

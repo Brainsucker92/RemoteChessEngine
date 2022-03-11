@@ -3,7 +3,7 @@ package server.factory;
 /**
  * Provides information about the engine that is being created on the host system.
  */
-public interface EngineConfig {
+public interface EngineParameters {
 
     /**
      * @return The command that is required to start the engine

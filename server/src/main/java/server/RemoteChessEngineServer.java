@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import core.engine.ChessEngine;
+import core.engine.impl.BasicChessEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import picocli.CommandLine;
-import server.factory.EngineConfig;
+import server.factory.EngineParameters;
 import server.factory.ProcessFactory;
-import server.factory.impl.SimpleEngineConfig;
+import server.factory.impl.SimpleEngineParameters;
 import server.factory.impl.SimpleProcessFactory;
 
 public class RemoteChessEngineServer implements Runnable {
@@ -38,7 +40,7 @@ public class RemoteChessEngineServer implements Runnable {
         processFactoryLock.lock();
         try {
             if (processFactory == null) {
-                EngineConfig config = new SimpleEngineConfig(engineCommand);
+                EngineParameters config = new SimpleEngineParameters(engineCommand);
                 processFactory = new SimpleProcessFactory(config);
             }
         } finally {
@@ -57,7 +59,8 @@ public class RemoteChessEngineServer implements Runnable {
                 } finally {
                     processFactoryLock.unlock();
                 }
-                SocketHandler handler = new SocketHandler(clientSocket, engineProcess);
+                ChessEngine chessEngine = new BasicChessEngine(engineProcess);
+                SocketHandler handler = new SocketHandler(clientSocket, chessEngine);
                 handler.setDaemon(true);
                 handler.start();
                 socketMap.put(clientSocket, handler);
