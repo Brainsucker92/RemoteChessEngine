@@ -4,7 +4,7 @@ import core.protocols.uci.UCIEngineCommand;
 
 public class GoCommand implements UCIEngineCommand {
 
-    private String cmdString;
+    private final String cmdString;
 
     GoCommand(String cmdString) {
         this.cmdString = cmdString;
