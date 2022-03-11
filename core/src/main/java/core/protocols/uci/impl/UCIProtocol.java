@@ -60,7 +60,9 @@ public class UCIProtocol {
     }
 
     public static String go() {
-        return "go";
+        GoCommand.GoCommandBuilder goCommandBuilder = GoCommand.builder();
+        GoCommand goCommand = goCommandBuilder.build();
+        return goCommand.asString();
     }
 
     public static String go(GoCommand command) {
