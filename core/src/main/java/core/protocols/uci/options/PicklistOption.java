@@ -2,16 +2,16 @@ package core.protocols.uci.options;
 
 import java.util.Arrays;
 
-public class PicklistOptionType extends UCIOptionType<String> {
+public class PicklistOption extends UCIOption<String> {
 
-    private String[] allowedValues;
+    private final String[] allowedValues;
 
-    public PicklistOptionType(String name, String defaultValue, String[] allowedValues) {
+    public PicklistOption(String name, String defaultValue, String[] allowedValues) {
         super(name, defaultValue);
         this.allowedValues = allowedValues;
     }
 
-    public PicklistOptionType(String name, String value, String defaultValue, String[] allowedValues) {
+    public PicklistOption(String name, String value, String defaultValue, String[] allowedValues) {
         super(name, value, defaultValue);
         this.allowedValues = allowedValues;
     }

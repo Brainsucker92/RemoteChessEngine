@@ -1,4 +1,4 @@
-package server.factory;
+package com.github.brainsucker92.rce.server.factory;
 
 /**
  * Provides information about the engine that is being created on the host system.

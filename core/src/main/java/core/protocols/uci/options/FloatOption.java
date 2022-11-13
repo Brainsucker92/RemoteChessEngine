@@ -1,17 +1,17 @@
 package core.protocols.uci.options;
 
-public class FloatOptionType extends UCIOptionType<Float> {
+public class FloatOption extends UCIOption<Float> {
 
-    private Float minValue;
-    private Float maxValue;
+    private final Float minValue;
+    private final Float maxValue;
 
-    public FloatOptionType(String name, Float defaultValue, Float minValue, Float maxValue) {
+    public FloatOption(String name, Float defaultValue, Float minValue, Float maxValue) {
         super(name, defaultValue);
         this.minValue = minValue;
         this.maxValue = maxValue;
     }
 
-    public FloatOptionType(String name, Float value, Float defaultValue, Float minValue, Float maxValue) {
+    public FloatOption(String name, Float value, Float defaultValue, Float minValue, Float maxValue) {
         super(name, value, defaultValue);
         this.minValue = minValue;
         this.maxValue = maxValue;

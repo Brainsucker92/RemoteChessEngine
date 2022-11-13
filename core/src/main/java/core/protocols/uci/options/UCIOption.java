@@ -3,19 +3,19 @@ package core.protocols.uci.options;
 import core.engine.ChessEngine;
 import core.protocols.uci.impl.UCIProtocol;
 
-public abstract class UCIOptionType<T> {
+public abstract class UCIOption<T> {
 
     private final String name;
     private final T defaultValue;
     private T value;
 
-    public UCIOptionType(String name, T defaultValue) {
+    public UCIOption(String name, T defaultValue) {
         this.name = name;
         this.value = defaultValue;
         this.defaultValue = defaultValue;
     }
 
-    public UCIOptionType(String name, T value, T defaultValue) {
+    public UCIOption(String name, T value, T defaultValue) {
         this.name = name;
         this.value = value;
         this.defaultValue = defaultValue;
@@ -37,7 +37,8 @@ public abstract class UCIOptionType<T> {
         return defaultValue;
     }
 
-    public void resetToDefault() {
+
+    public void reset() {
         this.value = defaultValue;
     }
 
@@ -47,9 +48,8 @@ public abstract class UCIOptionType<T> {
 
     public void applyOn(ChessEngine chessEngine) {
         String name = this.getName();
-        String type = this.getType();
         String valStr = this.getValueString();
-        String setoptionCommand = UCIProtocol.setoption(name, type, valStr);
-        chessEngine.sendCommand(setoptionCommand);
+        String command = UCIProtocol.setoption(name, valStr);
+        chessEngine.sendCommand(command);
     }
 }

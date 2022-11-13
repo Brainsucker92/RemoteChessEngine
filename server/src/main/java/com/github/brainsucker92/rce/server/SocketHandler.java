@@ -1,17 +1,12 @@
-package server;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.Socket;
+package com.github.brainsucker92.rce.server;
 
 import core.engine.ChessEngine;
 import core.engine.OutputListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.*;
+import java.net.Socket;
 
 public class SocketHandler extends Thread {
 
@@ -45,13 +40,12 @@ public class SocketHandler extends Thread {
                     }
                 }
             });
-            t1.setDaemon(true);
-
-            t1.start();
-            t1.join();
-
             OutputListener engineOutputListener = clientPrintStream::println;
             chessEngine.addOutputListener(engineOutputListener);
+
+            t1.setDaemon(true);
+            t1.start();
+            t1.join();
 
             String clientIP = clientSocket.getInetAddress().getHostAddress();
             int port = clientSocket.getPort();
@@ -70,12 +64,10 @@ public class SocketHandler extends Thread {
     }
 
     private void cleanup() {
-        if (!clientSocket.isClosed()) {
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,6 +1,6 @@
-package server.factory.impl;
+package com.github.brainsucker92.rce.server.factory.impl;
 
-import server.factory.EngineParameters;
+import com.github.brainsucker92.rce.server.factory.EngineParameters;
 
 public class SimpleEngineParameters implements EngineParameters {
 

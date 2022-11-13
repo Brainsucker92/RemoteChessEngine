@@ -1,12 +1,12 @@
 package core.protocols.uci.options;
 
-public class StringOptionType extends UCIOptionType<String> {
+public class StringOption extends UCIOption<String> {
 
-    public StringOptionType(String name, String defaultValue) {
+    public StringOption(String name, String defaultValue) {
         super(name, defaultValue);
     }
 
-    public StringOptionType(String name, String value, String defaultValue) {
+    public StringOption(String name, String value, String defaultValue) {
         super(name, value, defaultValue);
     }
 

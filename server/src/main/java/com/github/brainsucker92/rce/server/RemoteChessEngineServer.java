@@ -1,4 +1,11 @@
-package server;
+package com.github.brainsucker92.rce.server;
+
+import com.github.brainsucker92.rce.server.factory.ChessEngineFactory;
+import com.github.brainsucker92.rce.server.factory.impl.SimpleChessEngineFactory;
+import core.engine.ChessEngine;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import picocli.CommandLine;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -6,16 +13,6 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import core.engine.ChessEngine;
-import core.engine.impl.BasicChessEngine;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import picocli.CommandLine;
-import server.factory.EngineParameters;
-import server.factory.ProcessFactory;
-import server.factory.impl.SimpleEngineParameters;
-import server.factory.impl.SimpleProcessFactory;
 
 public class RemoteChessEngineServer implements Runnable {
 
@@ -25,8 +22,8 @@ public class RemoteChessEngineServer implements Runnable {
     @CommandLine.Option(names = {"-p", "--port"}, arity = "1", defaultValue = "42042")
     int port;
     private final HashMap<Socket, SocketHandler> socketMap = new HashMap<>();
-    private final Lock processFactoryLock = new ReentrantLock();
-    private ProcessFactory processFactory;
+    private final Lock engineFactoryLock = new ReentrantLock();
+    private ChessEngineFactory chessEngineFactory;
     private ServerSocket serverSocket;
 
     public static void main(String[] args) {
@@ -37,14 +34,13 @@ public class RemoteChessEngineServer implements Runnable {
     @Override
     @SuppressWarnings("InfiniteLoopStatement")
     public void run() {
-        processFactoryLock.lock();
+        engineFactoryLock.lock();
         try {
-            if (processFactory == null) {
-                EngineParameters config = new SimpleEngineParameters(engineCommand);
-                processFactory = new SimpleProcessFactory(config);
+            if (chessEngineFactory == null) {
+                chessEngineFactory = new SimpleChessEngineFactory(engineCommand);
             }
         } finally {
-            processFactoryLock.unlock();
+            engineFactoryLock.unlock();
         }
 
         try {
@@ -52,32 +48,25 @@ public class RemoteChessEngineServer implements Runnable {
             LOGGER.info(String.format("Server has been started and accepting connections on port %d.", port));
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                Process engineProcess;
-                processFactoryLock.lock();
-                try {
-                    engineProcess = processFactory.createProcess();
-                } finally {
-                    processFactoryLock.unlock();
-                }
-                ChessEngine chessEngine = new BasicChessEngine(engineProcess);
+                ChessEngine chessEngine = chessEngineFactory.createEngine();
                 SocketHandler handler = new SocketHandler(clientSocket, chessEngine);
                 handler.setDaemon(true);
                 handler.start();
                 socketMap.put(clientSocket, handler);
             }
-        } catch (SecurityException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             this.cleanup();
             LOGGER.info(String.format("Server on port %d has been stopped.", port));
         }
     }
 
-    public void setProcessFactory(ProcessFactory processFactory) {
-        processFactoryLock.lock();
+    public void setChessEngineFactory(ChessEngineFactory chessEngineFactory) {
+        engineFactoryLock.lock();
         try {
-            this.processFactory = processFactory;
+            this.chessEngineFactory = chessEngineFactory;
         } finally {
-            processFactoryLock.unlock();
+            engineFactoryLock.unlock();
         }
     }
 

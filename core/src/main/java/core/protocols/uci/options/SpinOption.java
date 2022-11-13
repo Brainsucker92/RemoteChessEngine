@@ -1,17 +1,17 @@
 package core.protocols.uci.options;
 
-public class SpinOptionType extends UCIOptionType<Integer> {
+public class SpinOption extends UCIOption<Integer> {
 
     private final Integer minValue;
     private final Integer maxValue;
 
-    public SpinOptionType(String name, Integer defaultValue, Integer minValue, Integer maxValue) {
+    public SpinOption(String name, Integer defaultValue, Integer minValue, Integer maxValue) {
         super(name, defaultValue);
         this.minValue = minValue;
         this.maxValue = maxValue;
     }
 
-    public SpinOptionType(String name, Integer value, Integer defaultValue, Integer minValue, Integer maxValue) {
+    public SpinOption(String name, Integer value, Integer defaultValue, Integer minValue, Integer maxValue) {
         super(name, value, defaultValue);
         this.minValue = minValue;
         this.maxValue = maxValue;

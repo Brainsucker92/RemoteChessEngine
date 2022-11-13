@@ -1,12 +1,12 @@
 package core.protocols.uci.options;
 
-public class CheckOptionType extends UCIOptionType<Boolean> {
+public class CheckOption extends UCIOption<Boolean> {
 
-    public CheckOptionType(String name, Boolean defaultValue) {
+    public CheckOption(String name, Boolean defaultValue) {
         super(name, defaultValue);
     }
 
-    public CheckOptionType(String name, Boolean value, Boolean defaultValue) {
+    public CheckOption(String name, Boolean value, Boolean defaultValue) {
         super(name, value, defaultValue);
     }
 
