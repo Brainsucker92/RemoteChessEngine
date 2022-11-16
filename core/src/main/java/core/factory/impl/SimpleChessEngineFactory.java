@@ -1,8 +1,8 @@
 package core.factory.impl;
 
-import core.factory.ChessEngineFactory;
 import core.engine.ChessEngine;
 import core.engine.impl.BasicChessEngine;
+import core.factory.ChessEngineFactory;
 
 public class SimpleChessEngineFactory implements ChessEngineFactory {
 

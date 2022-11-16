@@ -1,8 +1,8 @@
 package com.github.brainsucker92.rce.server;
 
+import core.engine.ChessEngine;
 import core.factory.ChessEngineFactory;
 import core.factory.impl.SimpleChessEngineFactory;
-import core.engine.ChessEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import picocli.CommandLine;
