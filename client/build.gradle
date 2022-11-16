@@ -35,7 +35,7 @@ application {
 shadowJar {
     archiveBaseName.set('RemoteChessEngine-Client')
     archiveClassifier.set('')
-    archiveVersion.set('')
+    archiveVersion.set(version)
 }
 compileJava {
     options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]

@@ -68,6 +68,7 @@ public class GoCommand implements EngineCommand {
         }
 
         public GoCommandBuilder depth(int depth) {
+
             stringBuilder.append(String.format(" depth %d", depth));
             return this;
         }

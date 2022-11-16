@@ -18,10 +18,10 @@ public class RemoteChessEngineClient extends Thread {
 
     @CommandLine.Option(names = {"-p", "--port"}, description = "Server Port", arity = "1", defaultValue = "42042")
     int port;
-    @CommandLine.Option(names = {"-a, --address"}, description = "Server hostname or IP address", arity = "1", defaultValue = "localhost")
+    @CommandLine.Option(names = {"-a", "--address"}, description = "Server hostname or IP address", arity = "1", defaultValue = "localhost")
     String address;
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
         int exitCode = new CommandLine(new RemoteChessEngineClient()).execute(args);
         System.exit(exitCode);
     }

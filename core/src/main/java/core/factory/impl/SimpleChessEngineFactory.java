@@ -1,7 +1,6 @@
-package com.github.brainsucker92.rce.server.factory.impl;
+package core.factory.impl;
 
-import com.github.brainsucker92.rce.server.factory.ChessEngineFactory;
-import com.github.brainsucker92.rce.server.factory.EngineParameters;
+import core.factory.ChessEngineFactory;
 import core.engine.ChessEngine;
 import core.engine.impl.BasicChessEngine;
 
@@ -13,10 +12,6 @@ public class SimpleChessEngineFactory implements ChessEngineFactory {
 
     public SimpleChessEngineFactory(String engineCommand) {
         this.engineCommand = engineCommand;
-    }
-
-    public SimpleChessEngineFactory(EngineParameters engineParameters) {
-        this.engineCommand = engineParameters.getEngineCommand();
     }
 
     @Override

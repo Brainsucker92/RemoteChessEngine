@@ -1,7 +1,7 @@
 package com.github.brainsucker92.rce.server;
 
-import com.github.brainsucker92.rce.server.factory.ChessEngineFactory;
-import com.github.brainsucker92.rce.server.factory.impl.SimpleChessEngineFactory;
+import core.factory.ChessEngineFactory;
+import core.factory.impl.SimpleChessEngineFactory;
 import core.engine.ChessEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
